@@ -1,0 +1,2 @@
+find /etc/ssl/certs/ -type l -exec test ! -e {} \; -prune -o -type f -iname '*.crt' -o -iname '*.crt' -exec cat {} + > all-ca-roots.pem
+openssl x509 -in all-ca-roots.pem -text -noout
