@@ -1,2 +1,23 @@
 echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
 sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+
+Debian, Ubuntu:
+
+sudo apt install build-essential libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev -y
+Fedora, Centos, Red Hat:
+
+sudo dnf install libxcb -y
+openSUSE:
+
+sudo zypper --non-interactive install xorg-x11-util-devel libxcb-composite0 libxcb-render0 libxcb-shape0 libxcb-xfixes0
+Arch Linux:
+
+sudo pacman -Syu --noconfirm libxcb
+Broot installation
+
+Once you have rust and dependencies installed, use cargo to install broot:
+
+cargo install --locked broot
+or, for clipboard support:
+
+cargo install --locked --features clipboard broot
