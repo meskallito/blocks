@@ -1,0 +1,68 @@
+(defcfg
+  input  (iokit-name "Apple Internal Keyboard / Trackpad")
+  output (kext)
+
+  fallthrough true
+)
+
+(defsrc
+  esc  f1  f2   f3   f4   f5   f6    f7   f8   f9  f10   f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft up
+  fn   lctl lalt lmet           spc            rmet ralt left down rght
+)
+
+(defalias 
+  navl (tap-hold-next-release 400 z (layer-toggle nav))
+  spel (layer-toggle special)
+  
+  met_l (tap-hold-next-release 400 f lmet)
+  ctl_l (tap-hold-next-release 400 a lctl)
+  alt_l (tap-hold-next-release 400 d lalt)
+
+  ss (tap-hold-next-release 400 spc lsft)
+  
+  nesc (tap-hold-next-release 400 esc (layer-toggle special))
+  nret (tap-hold-next-release 400 ret (layer-toggle special))
+
+  met_r (tap-hold-next-release 400 n rmet)
+  alt_r (tap-hold-next-release 400 m ralt)
+  ctl_r (tap-hold-next-release 400 ; rctl)
+
+  sr (around lmet (around lsft ]))
+  sl (around lmet (around lsft [))
+
+  gf (around lmet ])
+  gb (around lmet [)
+  focus (around fn f6)
+)
+
+(deflayer default
+  _      brdn    brup    mctl     spot    dict   @focus   prev     pp   next   mute    vold  volu
+  _       _       _       _        _       _      _        _      _      _      _       _    _    _
+  _       _       _       _        _       _      _        _      _      _      _       _    _    _
+@nesc   @ctl_l    _     @alt_l   @met_l    _      _        _      _      _    @ctl_r    _   @nret
+  _     @navl     _       _        _       _     @met_r   @alt_r   _       _    _   _  _
+  _       _       _       _              @ss              bspc    _      _      _       _
+)
+
+
+(deflayer nav
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _   home   pgdn  pgup   end   _    _    _    _
+  _    _    _    _    _    _   left down  up right @gb  @gf   _
+  _    _    _    _    _    _    _   @sl  @sr   _    _    _    _
+  _    _    _    _              _              _    _    _    _    _
+)
+
+(deflayer special
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    1    2    3    4    5    6    7    8   9   0   _    _   _
+  _    !    @    #    $    |    <    >    {    }    ;    "    _    _
+  ^    0    -    +    =    *   S-9  S-0   [    ]    :    '    $
+  _    1    2    3    4    5    \   S--   _    _    /    ?    _
+  _    _    _    _              _              _    _    _    _    _
+)
